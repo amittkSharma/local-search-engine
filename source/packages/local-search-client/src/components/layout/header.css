@@ -1,0 +1,12 @@
+.main-header {
+  display: flex;
+  background-color: #324157;
+}
+.main-header .app-name {
+  color: white;
+  margin: 0 2em 0 1em;
+  font: 20px sans-serif;
+  line-height: 50px;
+  width: 100%;
+}
+

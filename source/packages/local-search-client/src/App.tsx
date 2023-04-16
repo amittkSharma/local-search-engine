@@ -1,12 +1,11 @@
 import React from 'react'
 import './App.css'
+import { Launch } from './launch'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>Local search Engine</p>
-      </header>
+      <Launch />
     </div>
   )
 }
