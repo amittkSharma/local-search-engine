@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+  "useWorkspaces": true,
+  "version": "0.0.0",
+  "bootstrap": {
+    "ignore": "*-docker-*",
+    "hoist": ["lerna", "prettier", "prettier-quick"],
+    "force-local": true
+  }
+}
