@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
-import { SearchPage } from './pages'
+import { DetailPage, SearchPage } from './pages'
 
 export const Launch: React.FC = () => {
   return (
@@ -8,6 +8,7 @@ export const Launch: React.FC = () => {
       <Routes>
         <Route path="/" element={<Navigate replace={true} to="/search" />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/detail/:searchId" element={<DetailPage />} />
       </Routes>
     </Router>
   )

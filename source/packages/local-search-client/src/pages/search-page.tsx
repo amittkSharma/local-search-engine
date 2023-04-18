@@ -1,10 +1,14 @@
 import { Divider } from 'antd'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { HorizontalList, Layout, Search } from '../components'
 
 export const SearchPage: React.FC = () => {
+  const navigate = useNavigate()
   const onSearch = (value: string) => console.log(value)
-  const onItemSelected = (value: string) => console.log(value)
+  const onItemSelected = (value: string) => {
+    navigate(`/detail/${value}`)
+  }
 
   const data = [
     {
