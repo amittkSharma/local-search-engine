@@ -1,8 +1,8 @@
-import { Card, Col, Descriptions, Row } from 'antd'
+import { Card, Col, Descriptions, List, Row } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { SearchResponse } from 'src/models'
-import { Alert, Layout } from '../components'
+import { Alert, Layout, Text } from '../components'
 
 const descriptionContentStyle: React.CSSProperties = {
   marginLeft: 16,
@@ -37,15 +37,25 @@ export const DetailPage = () => {
         }}
       >
         {data ? (
-          <Card title={data.name} bordered={false} style={{ width: '90%', margin: 8 }}>
+          <Card
+            title={<Text text={data.name} italic={true} />}
+            bordered={false}
+            style={{ width: '90%', margin: 8 }}
+          >
             <Row>
               <Col span={12}>
                 <Descriptions layout="vertical" column={1}>
-                  <Descriptions.Item label="Address" contentStyle={descriptionContentStyle}>
+                  <Descriptions.Item
+                    label={<Text text="Address" italic={true} />}
+                    contentStyle={descriptionContentStyle}
+                  >
                     {data.location}
                   </Descriptions.Item>
                   {data.contactDetails && data.contactDetails.websiteUrls && (
-                    <Descriptions.Item label="Website" contentStyle={descriptionContentStyle}>
+                    <Descriptions.Item
+                      label={<Text text="Website" italic={true} />}
+                      contentStyle={descriptionContentStyle}
+                    >
                       {data.contactDetails.websiteUrls.map(url => {
                         return (
                           <a key={url} href={url}>
@@ -56,16 +66,49 @@ export const DetailPage = () => {
                     </Descriptions.Item>
                   )}
                   {data.contactDetails && data.contactDetails.phones && (
-                    <Descriptions.Item label="Phone(s)" contentStyle={descriptionContentStyle}>
+                    <Descriptions.Item
+                      label={<Text text="Phone(s)" italic={true} />}
+                      contentStyle={descriptionContentStyle}
+                    >
                       {data.contactDetails.phones.join(', ')}
                     </Descriptions.Item>
                   )}
                 </Descriptions>
               </Col>
               <Col span={12}>
-                <Descriptions layout="vertical">
-                  <Descriptions.Item label="Opening Hours" contentStyle={descriptionContentStyle}>
-                    empty
+                <Descriptions layout="vertical" column={1}>
+                  <Descriptions.Item
+                    label={<Text text="Opening Hours" italic={true} />}
+                    contentStyle={descriptionContentStyle}
+                  >
+                    <Descriptions layout="horizontal" column={1}>
+                      {data &&
+                        data !== undefined &&
+                        data.openingHours !== undefined &&
+                        data.openingHours.map(openHr => {
+                          return (
+                            <Descriptions.Item
+                              key={openHr.days}
+                              label={openHr.days}
+                              contentStyle={{ marginLeft: 16, marginTop: -12 }}
+                            >
+                              <List
+                                dataSource={openHr.openingTime}
+                                split={false}
+                                renderItem={item => (
+                                  <List.Item>
+                                    {item.type === 'closed' ? (
+                                      <Text text={item.type} />
+                                    ) : (
+                                      <Text text={`${item.start} - ${item.end}`} />
+                                    )}
+                                  </List.Item>
+                                )}
+                              />
+                            </Descriptions.Item>
+                          )
+                        })}
+                    </Descriptions>
                   </Descriptions.Item>
                 </Descriptions>
               </Col>
