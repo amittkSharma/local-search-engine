@@ -1,11 +1,10 @@
 import { Layout as AntdLayout } from 'antd'
 import * as React from 'react'
-import { MinimalComponentProps } from '../../models'
 import { Header } from './header'
 import './layout.css'
 const { Footer } = AntdLayout
 
-export interface LayoutProps extends MinimalComponentProps {
+interface LayoutProps {
   children?: React.ReactNode
   name?: string
   appName: string
