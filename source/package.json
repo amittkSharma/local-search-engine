@@ -19,7 +19,6 @@
     "eslint": "8.38.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-prettier": "4.2.1",
-    "npm-license-tracker": "3.0.0",
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-import": "2.27.5",
     "eslint-import-resolver-typescript": "3.5.5",
@@ -33,7 +32,6 @@
     "clean": "lerna clean --yes",
     "bootstrap": "lerna bootstrap --hoist",
     "start": "lerna run start",
-    "generate-license-info": "lerna run generate-license-info",
     "lint": "lerna run lint",
     "prettier": "lerna run prettier"
   },
