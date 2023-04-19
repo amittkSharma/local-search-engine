@@ -1,2 +1,3 @@
 server:
   port: 8081
+  externalApi: https://storage.googleapis.com/coding-session-rest-api/

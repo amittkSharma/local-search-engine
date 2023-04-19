@@ -1,14 +1,9 @@
 import { Card, List } from 'antd'
 import React from 'react'
-
-interface DataSource {
-  id: string
-  what: string
-  where: string
-}
+import { SearchResult } from '../../models'
 
 interface Props {
-  dataSource: DataSource[]
+  dataSource: SearchResult[]
   onItemSelected: (value: string) => void
 }
 
@@ -23,11 +18,11 @@ export const HorizontalList: React.FC<Props> = ({ dataSource, onItemSelected }: 
       renderItem={item => (
         <List.Item>
           <Card
-            title={item.what}
+            title={item.name}
             onClick={() => onItemSelected(item.id)}
             style={{ cursor: 'pointer' }}
           >
-            {item.where}
+            {item.location}
           </Card>
         </List.Item>
       )}

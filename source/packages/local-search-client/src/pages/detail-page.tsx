@@ -1,8 +1,9 @@
 import { Card, Col, Descriptions, List, Row } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { SearchResponse } from 'src/models'
 import { Alert, Layout, Text } from '../components'
+import { serverUrl } from '../connection'
+import { SearchResponse } from '../models'
 
 const descriptionContentStyle: React.CSSProperties = {
   marginLeft: 16,
@@ -14,10 +15,8 @@ export const DetailPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetch(`http://localhost:8081/api/details?searchId=${searchId}`)
+      const result = await fetch(`${serverUrl}details?searchId=${searchId}`)
       const jsonData = await result.json()
-      console.log(`Result status: ${result.status}`)
-      console.log(`Result: ${JSON.stringify(jsonData)}`)
       if (result.status === 200) {
         setData(jsonData.response)
       }

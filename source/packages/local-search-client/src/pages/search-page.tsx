@@ -1,37 +1,29 @@
-import { Divider } from 'antd'
-import React from 'react'
+import { Divider, notification } from 'antd'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { HorizontalList, Layout, Search } from '../components'
+import { serverUrl } from '../connection'
+import { SearchResult } from '../models'
 
 export const SearchPage: React.FC = () => {
   const navigate = useNavigate()
-  const onSearch = (value: string) => console.log(value)
+  const [data, setData] = useState<SearchResult[] | undefined>(undefined)
+
+  const onSearch = async (searchText: string) => {
+    if (searchText !== '') {
+      const result = await fetch(`${serverUrl}searchResults?searchText=${searchText}`)
+      const jsonData = await result.json()
+
+      setData(jsonData.response)
+    } else {
+      notification.error({
+        message: 'Search with empty string is not possible, please enter some text in search box',
+      })
+    }
+  }
   const onItemSelected = (value: string) => {
     navigate(`/detail/${value}`)
   }
-
-  const data = [
-    {
-      id: 'GXvPAor1ifNfpF0U5PTG0w',
-      what: 'Casa Ferlin',
-      where: 'Stampfenbachstrasse 38, 8006 Zürich',
-    },
-    {
-      id: 'ohGSnJtMIC5nPfYRi_HTAg',
-      what: 'Le Café du Marché',
-      where: 'Rue de Conthey 17, 1950 Sion',
-    },
-    {
-      id: 'GXvPAor1ifNfpF0U5PTG0w',
-      what: 'Casa Ferlin',
-      where: 'Stampfenbachstrasse 38, 8006 Zürich',
-    },
-    {
-      id: 'ohGSnJtMIC5nPfYRi_HTAg',
-      what: 'Le Café du Marché',
-      where: 'Rue de Conthey 17, 1950 Sion',
-    },
-  ]
 
   return (
     <Layout appName="Local Search Engine">
@@ -45,7 +37,8 @@ export const SearchPage: React.FC = () => {
       >
         <Search placeholder="Search by name or address" onSearch={onSearch} />
         <Divider />
-        <HorizontalList dataSource={data} onItemSelected={onItemSelected} />
+
+        {data && <HorizontalList dataSource={data} onItemSelected={onItemSelected} />}
       </div>
     </Layout>
   )
