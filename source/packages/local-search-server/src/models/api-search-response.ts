@@ -4,9 +4,9 @@ export enum ContactType {
 }
 
 export interface ApiContact {
-  contact_type: string
+  contact_type: ContactType
   formatted_service_code: string
-  service_code: ContactType
+  service_code: string
 }
 
 export interface ApiAddress {
@@ -14,13 +14,13 @@ export interface ApiAddress {
 }
 
 export interface ApiDays {
-  start: string
-  end: string
+  start?: string
+  end?: string
   type: string
 }
 
 export interface ApiOpeningHours {
-  days: { key: string; value: ApiDays[] }
+  days: { [key: string]: ApiDays[] }
 }
 
 export interface ApiSearchResponse {

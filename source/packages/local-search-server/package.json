@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "prettier": "prettier --write '**/*.{ts,js}'",
     "launch": "npm run build && npm start",
-    "start": "node bin/local-search-server | pino-pretty -c -t"
+    "start": "node bin/local-search-server | pino-pretty -c -t",
+    "test": "jest --config jest.config.js"
   },
   "dependencies": {
     "compression": "1.7.4",

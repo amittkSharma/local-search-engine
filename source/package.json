@@ -33,7 +33,8 @@
     "bootstrap": "lerna bootstrap --hoist",
     "start": "lerna run start",
     "lint": "lerna run lint",
-    "prettier": "lerna run prettier"
+    "prettier": "lerna run prettier",
+    "test": "lerna run test --stream"
   },
   "husky": {
     "hooks": {
