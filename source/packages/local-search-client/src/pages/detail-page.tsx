@@ -1,6 +1,7 @@
-import { Card, Col, Descriptions, List, Row } from 'antd'
+import { SearchOutlined } from '@ant-design/icons'
+import { Card, Col, Descriptions, List, Row, Tooltip } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Alert, Layout, Text } from '../components'
 import { serverUrl } from '../connection'
 import { SearchResponse } from '../models'
@@ -11,6 +12,7 @@ const descriptionContentStyle: React.CSSProperties = {
 
 export const DetailPage = () => {
   const { searchId } = useParams()
+  const navigate = useNavigate()
   const [data, setData] = useState<SearchResponse | undefined>(undefined)
 
   useEffect(() => {
@@ -40,6 +42,11 @@ export const DetailPage = () => {
             title={<Text text={data.name} italic={true} />}
             bordered={false}
             style={{ width: '90%', margin: 8 }}
+            extra={
+              <Tooltip title="Back to search page" placement="bottom">
+                <SearchOutlined onClick={() => navigate(`/search`)} />
+              </Tooltip>
+            }
           >
             <Row>
               <Col span={12}>

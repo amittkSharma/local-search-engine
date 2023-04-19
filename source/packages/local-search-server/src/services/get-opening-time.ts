@@ -7,11 +7,20 @@ const weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'satur
 export function getOpeningTimes(apiOpeningHours: ApiOpeningHours): OpeningHour[] {
   const { days } = apiOpeningHours
   const openWeekdays = Object.keys(days)
-  const allTimes = _.uniqWith(Object.values(days), _.isEqual)
   const closedWeekDays = _.differenceBy(weekdays, openWeekdays, 0)
 
-  const openingHours = allTimes.map(entry => {
-    const openDays = openWeekdays.filter(d => JSON.stringify(days[d]) === JSON.stringify(entry))
+  closedWeekDays.forEach(closedWeekDay => {
+    days[closedWeekDay] = [{ type: 'closed' }]
+  })
+
+  const newDaysObj = {}
+  weekdays.forEach(weekday => {
+    newDaysObj[weekday] = days[weekday]
+  })
+  const allUniqueTimes = _.uniqWith(Object.values(newDaysObj), _.isEqual)
+
+  const openingHours = allUniqueTimes.map(entry => {
+    const openDays = weekdays.filter(d => JSON.stringify(newDaysObj[d]) === JSON.stringify(entry))
 
     const openingHr: OpeningHour = {
       days:
@@ -19,19 +28,11 @@ export function getOpeningTimes(apiOpeningHours: ApiOpeningHours): OpeningHour[]
           ? `${getFirstCharUpperCase(openDays[0])}-${getFirstCharUpperCase(
               openDays[openDays.length - 1],
             )}`
-          : getFirstCharUpperCase(openDays.toString()),
-      openingTime: [...entry] as OpeningTime[],
+          : getFirstCharUpperCase(openDays[0]),
+      openingTime: [...(entry as never)] as OpeningTime[],
     }
 
     return openingHr
-  })
-
-  closedWeekDays.forEach(closedWeekDay => {
-    const openingHr: OpeningHour = {
-      days: getFirstCharUpperCase(closedWeekDay.toString()),
-      openingTime: [{ type: 'closed' }] as OpeningTime[],
-    }
-    openingHours.push(openingHr)
   })
 
   return openingHours

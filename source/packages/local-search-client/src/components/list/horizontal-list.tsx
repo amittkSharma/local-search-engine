@@ -1,4 +1,5 @@
-import { Card, List } from 'antd'
+import { NumberOutlined } from '@ant-design/icons'
+import { Card, List, Statistic } from 'antd'
 import React from 'react'
 import { SearchResult } from '../../models'
 
@@ -15,6 +16,9 @@ export const HorizontalList: React.FC<Props> = ({ dataSource, onItemSelected }: 
         column: 2,
       }}
       dataSource={dataSource}
+      footer={
+        <Statistic title="Total Items" value={dataSource.length} prefix={<NumberOutlined />} />
+      }
       renderItem={item => (
         <List.Item>
           <Card
