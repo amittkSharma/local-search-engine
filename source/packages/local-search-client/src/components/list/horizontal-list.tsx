@@ -17,7 +17,9 @@ export const HorizontalList: React.FC<Props> = ({ dataSource, onItemSelected }: 
       }}
       dataSource={dataSource}
       footer={
-        <Statistic title="Total Items" value={dataSource.length} prefix={<NumberOutlined />} />
+        dataSource.length !== 0 && (
+          <Statistic title="Total Items" value={dataSource.length} prefix={<NumberOutlined />} />
+        )
       }
       renderItem={item => (
         <List.Item>
