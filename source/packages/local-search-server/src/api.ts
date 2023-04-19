@@ -50,7 +50,7 @@ function searchResults(req: Request, res: Response<object>) {
 
 async function details(req: Request, res: Response<object>) {
   const { searchId } = req.query
-  log.info(`Search id is: ${searchId}`)
+  log.info(`Getting details for the entity id: ${searchId}`)
   const options = {
     method: 'GET',
   }
